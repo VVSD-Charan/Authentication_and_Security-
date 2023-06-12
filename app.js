@@ -5,10 +5,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require('mongoose');
-//Importing md5 for hashing
-// const md5 = require('md5');
-//Importing mongoose-encryption to hash passwords
-// const encrypt=require('mongoose-encryption');
 
 //Importing bcrypt (better hashing algo)
 const bcrypt = require('bcrypt');
@@ -29,9 +25,6 @@ const userSchema = new mongoose.Schema({
     email: String,
     password: String
 });
-
-//Encrypting password field
-// userSchema.plugin(encrypt,{secret:process.env.SECRET,encryptedFields:['password']});
 
 //Creating mongoose model
 const User = mongoose.model('User', userSchema);
@@ -72,9 +65,6 @@ app.get('/register', (request, response) => {
 //Handling register post request
 app.post('/register', (request, response) => {
     var username = request.body.username;
-    // var userpassword=md5(request.body.password);
-    // console.log("Username is "+username);
-    // console.log("Password is : "+password);
 
     //Using bcrypt to hash
     bcrypt.hash(request.body.password, saltRounds, (err, hash) => {
@@ -98,18 +88,10 @@ app.post('/register', (request, response) => {
             });
         }
     });
-
-    // User.find().then((users)=>{
-    //     console.log(users);
-    // }).catch((err)=>{
-    //     console.log("Failed to fetch users");
-    // })
 });
 // Handling login post request 
 app.post('/login', (request, response) => {
     var username = request.body.username;
-    // var password = md5(request.body.password);
-    // console.log(username+" "+password);
 
     User.findOne({ email: username }).then((user) => {
         bcrypt.compare(request.body.password,user.password,(err,result)=>{
