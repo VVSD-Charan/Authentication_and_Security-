@@ -1,5 +1,5 @@
 # Authentication_and_Security
 
-## This project is just for reference to implement sessions and cookies using passport.js.
+## This project serves as a valuable reference for implementing login and logout sessions, as well as managing cookies using passport.js.
 
 
